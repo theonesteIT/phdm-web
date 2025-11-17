@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - PHDM Ministry</title>
+  <link rel="stylesheet" href="Header.css">
+  <link rel="stylesheet" href="Footer.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      
+      color: #000000;
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(234, 179, 8, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(249,115,22,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .header-section h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #000000;
+      margin-bottom: 1.5rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #f97316, #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .divider {
+      height: 4px;
+      width: 128px;
+      background: linear-gradient(to right, #f97316, #eab308, #f97316);
+      margin: 0 auto;
+    }
+
+    .header-section p {
+      margin-top: 2rem;
+      font-size: 1.25rem;
+      color: rgba(0, 0, 0, 0.8);
+      max-width: 768px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .grid {
+      display: grid;
+      gap: 3rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 1024px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #000000;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .icon-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .card:hover .icon-box {
+      transform: scale(1.1);
+    }
+
+    .icon-box span {
+      font-size: 2rem;
+    }
+
+    .blue-gradient {
+      background: linear-gradient(to bottom right, #3b82f6, #06b6d4);
+    }
+
+    .green-gradient {
+      background: linear-gradient(to bottom right, #22c55e, #10b981);
+    }
+
+    .purple-gradient {
+      background: linear-gradient(to bottom right, #a855f7, #6366f1);
+    }
+
+    .contact-info-item h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-info-item p {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    .service-times {
+      margin-top: 3rem;
+      background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
+    }
+
+    .service-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .service-item:last-child {
+      border-bottom: none;
+    }
+
+    .service-item span:first-child {
+      font-weight: 600;
+    }
+
+    .service-item span:last-child {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border-radius: 0.75rem;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #f97316;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(to right, #f97316, #eab308);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .cta-section {
+      margin-top: 5rem;
+      text-align: center;
+    }
+
+    .cta-card {
+      background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
+      max-width: 896px;
+      margin: 0 auto;
+    }
+
+    .cta-card h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-card p {
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    @media (min-width: 640px) {
+      .cta-buttons {
+        flex-direction: row;
+      }
+    }
+
+    .cta-buttons a {
+      background: linear-gradient(to right, #f97316, #eab308);
+      color: #ffffff;
+      font-weight: 700;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-block;
+    }
+
+    .cta-buttons a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .header-section h1 {
+        font-size: 2.5rem;
+      }
+
+      .header-section p {
+        font-size: 1.125rem;
+      }
+    }
+
+    .success-message {
+      display: none;
+      background: linear-gradient(to right, #22c55e, #10b981);
+      color: white;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .success-message.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+   <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Events.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="give.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Contact.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+  <section class="section">
+    <div class="container">
+      <div class="header-section">
+        <h1>
+          <span class="gradient-text">Get</span> In Touch
+        </h1>
+        <div class="divider"></div>
+        <p>
+          We'd love to hear from you! Reach out to us with any questions, prayer requests, or to learn more about our ministry.
+        </p>
+      </div>
+
+      <div class="grid">
+        <!-- Contact Information -->
+        <div>
+          <h2 class="section-title">Contact Information</h2>
+          <div id="contact-info"></div>
+
+          <!-- Service Times -->
+          <div class="card service-times">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Service Times</h3>
+            <div class="service-item">
+              <span>Sunday Service</span>
+              <span>10:00 AM - 12:00 PM</span>
+            </div>
+            <div class="service-item">
+              <span>Wednesday Prayer</span>
+              <span>10:00 AM - 4:00 PM</span>
+            </div>
+            <div class="service-item">
+              <span>Friday Service</span>
+              <span>5:30 PM - 7:30 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div>
+          <h2 class="section-title">Send Us a Message</h2>
+          <form class="card" id="contact-form">
+            <div class="success-message" id="success-message">
+              ✓ Thank you! Your message has been sent successfully.
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" placeholder="Your first name" required>
+              </div>
+              <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" placeholder="Your last name" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="your.email@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone (Optional)</label>
+              <input type="tel" id="phone" placeholder="+250 123 456 789">
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <select id="subject" required>
+                <option value="general">General Inquiry</option>
+                <option value="prayer">Prayer Request</option>
+                <option value="ministry">Ministry Information</option>
+                <option value="volunteer">Volunteer Opportunities</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" placeholder="Tell us how we can help you..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="cta-section">
+        <div class="card cta-card">
+          <h2>We're Here for You</h2>
+          <p>
+            Whether you're new to faith, looking for a church home, or need prayer and support, 
+            we're here to help you on your spiritual journey.
+          </p>
+          <div class="cta-buttons">
+            <a href="/about.html">Learn About Us</a>
+            <a href="/events.html">Join an Event</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <footer>
+        <!-- Main Footer Section -->
+        <div class="footer-main">
+            <div class="container" style="display: contents;">
+                <!-- Column 1: Ministry Info -->
+                <div class="ministry-info">
+                    <h2>PHD Ministry</h2>
+                    <p class="ministry-tagline">Prayer • Healing • Discipleship</p>
+                    <p class="ministry-description">
+                        Empowering lives through faith, healing, and discipleship.
+                    </p>
+                </div>
+
+                <!-- Column 2: Visit & Contact -->
+                <div class="contact-info">
+                    <div class="contact-section">
+                        <h4>Visit Us</h4>
+                        <p>Kigali Kanombe, City, Rwanda</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 phdmministry@gmail.com</p>
+                        <p>📞 +250 788 560 756/0783140316</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d517.8889369608336!2d30.141329889783577!3d-2.0132904952767854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca948d3b52825%3A0x628cae646f43c5aa!2sPHD%20Ministry!5e1!3m2!1sen!2srw!4v1762265109751!5m2!1sen!2srw"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="PHD Ministry Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Social Bar -->
+        <div class="social-bar">
+            <div class="container" style="display: contents;">
+                <p class="copyright">
+                    © <span id="currentYear"></span> PHD Ministry. All rights reserved.
+                </p>
+
+                <div class="social-links">
+                    <a 
+                        href="http://facebook.com/PHD-Ministry-Rwanda-101293981804906" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a 
+                        href="http://instagram.com/phdministyrwanda" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/@phdwisdomtv3801" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    const contactInfo = [
+      {
+        title: 'Visit Us',
+        description: 'Kigali City, Kanombe - Nyarugugu location Busanza',
+        icon: '📍',
+        colorClass: 'blue-gradient'
+      },
+      {
+        title: 'Call Us',
+        description: '+250788560756 / +250783140316',
+        icon: '📞',
+        colorClass: 'green-gradient'
+      },
+      {
+        title: 'Email Us',
+        description: 'phdmministry@gmail.com',
+        icon: '✉️',
+        colorClass: 'purple-gradient'
+      }
+    ];
+
+    const contactInfoContainer = document.getElementById('contact-info');
+    
+    contactInfo.forEach(info => {
+      const card = document.createElement('div');
+      card.className = 'card contact-info-item';
+      card.innerHTML = `
+        <div class="icon-box ${info.colorClass}">
+          <span>${info.icon}</span>
+        </div>
+        <div>
+          <h3>${info.title}</h3>
+          <p>${info.description}</p>
+        </div>
+      `;
+      contactInfoContainer.appendChild(card);
+    });
+
+    const form = document.getElementById('contact-form');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Show success message
+      successMessage.classList.add('show');
+      
+      // Reset form
+      form.reset();
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        successMessage.classList.remove('show');
+      }, 5000);
+      
+      // Scroll to top of form
+      form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>

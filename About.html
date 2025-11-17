@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - PHD Ministry</title>
+ <link rel="stylesheet" href="About.css">
+ <link rel="stylesheet" href="Header.css">
+ <link rel="stylesheet" href="Footer.css">
+</head>
+<body>
+     <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Events.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="give.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Contact.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+
+    <!-- Mobile Modal -->
+    <div id="backdrop" class="backdrop hidden"></div>
+    <div id="mobileModal" class="mobile-modal hidden">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <div class="modal-logo">
+                <img src="assets/logo-orginal.jpg" alt="PHDM Church">
+                <span>PHD Ministry</span>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close menu">
+                <div class="close-btn-bg"></div>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="modal-nav">
+            <ul class="modal-nav-list">
+                <li>
+                    <a href="/" class="modal-nav-link active">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>🏠</span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>ℹ️</span>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/news" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📰</span>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/events" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📅</span>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/give" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>💝</span>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📞</span>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/gallery" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>🖼️</span>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Support Button -->
+            <div class="support-section">
+                <a href="/give" class="support-btn">
+                    <div class="support-btn-bg"></div>
+                    <div class="support-btn-decorator1"></div>
+                    <div class="support-btn-decorator2"></div>
+                    <div class="support-btn-content">
+                        <span class="support-btn-icon">💝</span>
+                        <span class="support-btn-text">Support Ministry</span>
+                        <span class="support-btn-arrow">→</span>
+                    </div>
+                    <div class="support-btn-shine"></div>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <p>Prayer • Healing • Discipleship</p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const backdrop = document.getElementById('backdrop');
+        const mobileModal = document.getElementById('mobileModal');
+
+        function openMenu() {
+            mobileModal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileModal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+            document.body.style.overflow = 'unset';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        backdrop.addEventListener('click', closeMenu);
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileModal.classList.contains('hidden')) {
+                closeMenu();
+            }
+        });
+
+        // Close modal when clicking a link
+        const modalLinks = document.querySelectorAll('.modal-nav-link, .support-btn');
+        modalLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Set active state based on current page
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link, .modal-nav-link');
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
+    <section>
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>
+                    <span class="gradient-text">About</span> PHD Ministry
+                </h1>
+                <div class="hero-divider"></div>
+            </div>
+
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-grid">
+                        <div class="welcome-image">
+                            <img id="welcomeImg" src="images/events-worked/ministry.jpg" alt="PHD Ministry Welcome" 
+                                 onerror="this.style.display='none'; document.getElementById('welcomeFallback').style.display='flex'">
+                            <div id="welcomeFallback" class="welcome-image-fallback" style="display: none;">
+                                <div>
+                                    <span>⛪</span>
+                                    <h3 style="font-size: 1.875rem; font-weight: 700;">Welcome Home</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="welcome-content">
+                            <span class="badge">Welcome to PHDM</span>
+                            <h2>A Place to Call <span style="color: #f97316;">Home</span></h2>
+                            <p style="font-size: 1.25rem;">
+                                We are a Christ-centered Ministry devoted to worship, discipleship,
+                                and service. Our Goal is to see people transformed by the Gospel and
+                                equipped to impact the world.
+                            </p>
+                            <p style="font-size: 1.125rem; color: #4b5563;">
+                                Join us for vibrant services, authentic community, and opportunities
+                                to serve. We believe our ministry is a family where everyone has a role to play.
+                            </p>
+                            <div class="btn-group">
+                                <a href="#service-times" class="btn btn-primary">Join Us This Week</a>
+                                <a href="/contact" class="btn btn-secondary">Get in Touch</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission & Vision -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <div class="card-icon" style="margin-right: 1.5rem; margin-bottom: 0;">🎯</div>
+                        <h2>Our Mission</h2>
+                    </div>
+                    <p>
+                        To equip community members with knowledge of God's Words, skills for social well-being and strategies
+                        for personal development.
+                    </p>
+                </div>
+                
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <div class="card-icon" style="margin-right: 1.5rem; margin-bottom: 0;">👁️</div>
+                        <h2>Our Vision</h2>
+                    </div>
+                    <p>
+                        To ensure the members of community prosper in spirit, soul and body. "3 John 3:2"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Values Section -->
+            <div class="values-section">
+                <div class="section-header">
+                    <h2>Our Core Values</h2>
+                    <p>The principles that guide everything we do</p>
+                </div>
+                <div class="values-card">
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-icon">🙏</div>
+                            <div class="value-content">
+                                <h3>Faith</h3>
+                                <p>Trusting in God's promises and walking by faith, not by sight</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">💫</div>
+                            <div class="value-content">
+                                <h3>Prayer</h3>
+                                <p>Communion with our Father through constant prayer and intercession</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">✨</div>
+                            <div class="value-content">
+                                <h3>Healing</h3>
+                                <p>Restoration and wholeness through the power of the Holy Spirit</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">📖</div>
+                            <div class="value-content">
+                                <h3>Discipleship</h3>
+                                <p>Growing in Christ through teaching and mentorship</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Church History & Leadership -->
+            <div class="cards-grid">
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="width: 4rem; height: 4rem; border-radius: 1rem; background: linear-gradient(to bottom right, #f97316, #fbbf24); display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-size: 1.875rem;">📖</div>
+                        <h3>Our Story</h3>
+                    </div>
+                    <p style="margin-bottom: 1rem;">
+                        In 2016, our story began not in a large auditorium, but in a humble room. It started as a small prayer group—a handful of faithful hearts who believed in the transformative 
+                        power of the Holy Spirit. We gathered with a simple, yet bold vision: to see lives radically changed by the love of Jesus Christ.
+                    </p>
+                    <p>
+                        Today, we serve thousands across our community, providing spiritual guidance, for social economic empowerment, healing, and hope for all.
+                    </p>
+                </div>
+                <div class="card">
+                    <div style="display: flex; align-items: center; margin-bottom: 1.5rem;">
+                        <div style="width: 4rem; height: 4rem; border-radius: 1rem; background: linear-gradient(to bottom right, #f97316, #fbbf24); display: flex; align-items: center; justify-content: center; margin-right: 1rem; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); font-size: 1.875rem;">👥</div>
+                        <h3>Leadership</h3>
+                    </div>
+                    <p style="margin-bottom: 1rem;">
+                        Our ministry is led by dedicated pastors and leaders who are committed to serving God and His people with integrity and compassion.
+                    </p>
+                    <p>
+                        We believe in raising up the next generation of leaders through mentorship, training, and spiritual development.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Board Members Section -->
+            <div class="team-section">
+                <div class="section-header">
+                    <h2>Meet Our <span style="color: #f97316;">Leaders</span></h2>
+                    <div style="height: 4px; width: 6rem; background: linear-gradient(to right, #f97316, #fbbf24, #f97316); margin: 1.5rem auto;"></div>
+                    <p style="line-height: 1.75;">
+                        Our board members are committed leaders who guide PHDM's strategic direction, ensuring we remain faithful to our mission while adapting to the evolving needs of our community.
+                    </p>
+                </div>
+
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="avatar-container">
+                            <div class="avatar-border">
+                                <div class="avatar-inner">
+                                    <img class="avatar-image" src="images/events-worked/paster1.jpg" alt="MUTETELI Eugenie"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                                    <div class="avatar-fallback" style="display: none;">ME</div>
+                                </div>
+                            </div>
+                            <div class="status-badge">
+                                <div class="pulse-dot"></div>
+                                Active
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h3>MUTETELI Eugenie</h3>
+                            <div class="position-badge">
+                                <p>President</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="social-links">
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </button>
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="avatar-container">
+                            <div class="avatar-border">
+                                <div class="avatar-inner">
+                                    <img class="avatar-image" src="images/events-worked/paster22.jpg" alt="NIMEPATA MUHOZI Paul"
+                                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                                    <div class="avatar-fallback" style="display: none;">NP</div>
+                                </div>
+                            </div>
+                            <div class="status-badge">
+                                <div class="pulse-dot"></div>
+                                Active
+                            </div>
+                        </div>
+                        <div class="team-info">
+                            <h3>NIMEPATA MUHOZI Paul</h3>
+                            <div class="position-badge">
+                                <p>Vice President</p>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="social-links">
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </button>
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </button>
+                                <button class="social-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leadership Commitment -->
+                <div class="commitment-card">
+                    <h3>Our Leadership Commitment</h3>
+                    <p class="commitment-text">
+                        Our Leaders serves with integrity, wisdom, and a deep commitment to our community. 
+                        Together, they ensure that PHDM remains a beacon of hope, healing, and transformation for all who seek God's love and purpose.
+                    </p>
+                    <div class="commitment-grid">
+                        <div class="commitment-item">
+                            <div class="commitment-icon">🎯</div>
+                            <h4>Vision</h4>
+                            <p>Strategic direction and long-term planning</p>
+                        </div>
+                        <div class="commitment-item">
+                            <div class="commitment-icon">🤝</div>
+                            <h4>Stewardship</h4>
+                            <p>Responsible oversight and governance</p>
+                        </div>
+                        <div class="commitment-item">
+                            <div class="commitment-icon">❤️</div>
+                            <h4>Service</h4>
+                            <p>Dedicated service to our community</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service Times -->
+            <div id="service-times" class="service-times">
+                <h2>Join Us This Week</h2>
+                <p>Experience the presence of God with us</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">⛪</div>
+                        <h3>Sunday Service</h3>
+                        <p class="service-time">10:00 AM - 12:00 PM</p>
+                        <p>Worship, Word, and Fellowship</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🙏</div>
+                        <h3>Wednesday Prayer</h3>
+                        <p class="service-time">10:00 AM - 4:00 PM</p>
+                        <p>Corporate Prayer and Intercession</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">👨‍👩‍👧‍👦</div>
+                        <h3>Friday Service</h3>
+                        <p class="service-time">6:00 PM - 7:30 PM</p>
+                        <p>Corporate Prayer and Intercession</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <h3>Join Our Mission</h3>
+                    <p>
+                        Be part of the transformation happening in our community. Whether through prayer, service, or support, your involvement makes a difference.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="/contact" class="cta-btn cta-btn-primary">Get Involved</a>
+                        <a href="/give" class="cta-btn cta-btn-secondary">Support Our Work</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+       <footer>
+        <!-- Main Footer Section -->
+        <div class="footer-main">
+            <div class="container" style="display: contents;">
+                <!-- Column 1: Ministry Info -->
+                <div class="ministry-info">
+                    <h2>PHD Ministry</h2>
+                    <p class="ministry-tagline">Prayer • Healing • Discipleship</p>
+                    <p class="ministry-description">
+                        Empowering lives through faith, healing, and discipleship.
+                    </p>
+                </div>
+
+                <!-- Column 2: Visit & Contact -->
+                <div class="contact-info">
+                    <div class="contact-section">
+                        <h4>Visit Us</h4>
+                        <p>Kigali Kanombe, City, Rwanda</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 phdmministry@gmail.com</p>
+                        <p>📞 +250 788 560 756/0783140316</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d517.8889369608336!2d30.141329889783577!3d-2.0132904952767854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca948d3b52825%3A0x628cae646f43c5aa!2sPHD%20Ministry!5e1!3m2!1sen!2srw!4v1762265109751!5m2!1sen!2srw"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="PHD Ministry Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Social Bar -->
+        <div class="social-bar">
+            <div class="container" style="display: contents;">
+                <p class="copyright">
+                    © <span id="currentYear"></span> PHD Ministry. All rights reserved.
+                </p>
+
+                <div class="social-links">
+                    <a 
+                        href="http://facebook.com/PHD-Ministry-Rwanda-101293981804906" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a 
+                        href="http://instagram.com/phdministyrwanda" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/@phdwisdomtv3801" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

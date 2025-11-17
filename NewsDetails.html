@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Details - PHD Ministry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f9fafb, #ffffff);
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Back Button */
+        .back-section {
+            padding: 2rem 0;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #f97316;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #ea580c;
+        }
+
+        .back-arrow {
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover .back-arrow {
+            transform: translateX(-0.25rem);
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 3rem 0;
+        }
+
+        .header-content {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-ministry {
+            background: #f97316;
+            color: white;
+        }
+
+        .badge-event {
+            background: #fbbf24;
+            color: black;
+        }
+
+        .badge-community {
+            background: #10b981;
+            color: white;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: black;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            color: #4b5563;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: black;
+        }
+
+        .author-name {
+            font-weight: 600;
+            color: black;
+        }
+
+        /* Main Image */
+        .main-image-section {
+            margin-bottom: 3rem;
+        }
+
+        .image-container {
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        .main-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            height: 24rem;
+        }
+
+        @media (min-width: 768px) {
+            .main-image {
+                height: 31.25rem;
+            }
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9rem;
+        }
+
+        /* Gallery Thumbnails */
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .thumbnail {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            height: 6rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e5e7eb;
+        }
+
+        .thumbnail:hover {
+            border-color: rgba(249, 115, 22, 0.3);
+        }
+
+        .thumbnail.active {
+            border: 4px solid #f97316;
+            transform: scale(1.05);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        /* Article Content */
+        .article-content-section {
+            padding-bottom: 5rem;
+        }
+
+        .content-wrapper {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .content-card {
+                padding: 3rem;
+            }
+        }
+
+        .content-section {
+            margin-top: 2.5rem;
+        }
+
+        .content-section:first-child {
+            margin-top: 0;
+        }
+
+        .content-heading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .content-heading {
+                font-size: 1.875rem;
+            }
+        }
+
+        .content-text {
+            font-size: 1.125rem;
+            color: #374151;
+            line-height: 1.75;
+        }
+
+        /* Social Share */
+        .social-share {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .social-share h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: black;
+            margin-bottom: 1rem;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-btn.facebook {
+            background: #3b5998;
+        }
+
+        .social-btn.facebook:hover {
+            background: #2d4373;
+        }
+
+        .social-btn.twitter {
+            background: #60a5fa;
+        }
+
+        .social-btn.twitter:hover {
+            background: #3b82f6;
+        }
+
+        .social-btn.whatsapp {
+            background: #10b981;
+        }
+
+        .social-btn.whatsapp:hover {
+            background: #059669;
+        }
+
+        /* Related Articles */
+        .related-section {
+            background: linear-gradient(to right, rgba(249, 115, 22, 0.1), rgba(251, 191, 36, 0.1));
+            padding: 5rem 0;
+        }
+
+        .related-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: black;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .related-grid {
+            display: grid;
+            gap: 2rem;
+            max-width: 80rem;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid #f3f4f6;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        .related-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: rgba(249, 115, 22, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .related-image {
+            position: relative;
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        .related-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .related-card:hover .related-image img {
+            transform: scale(1.1);
+        }
+
+        .related-image-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .related-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .related-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .related-content {
+            padding: 1.5rem;
+        }
+
+        .related-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+
+        .related-title-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: black;
+            transition: color 0.3s;
+        }
+
+        .related-card:hover .related-title-text {
+            color: #f97316;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <div class="back-section">
+        <div class="container">
+            <a href="News.html" class="back-btn">
+                <span class="back-arrow">←</span>
+                Back to News
+            </a>
+        </div>
+    </div>
+
+    <!-- Article Header -->
+    <section class="article-header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <span class="category-badge" id="categoryBadge">Ministry Update</span>
+                </div>
+                <h1 class="article-title" id="articleTitle">Loading...</h1>
+                <div class="article-meta">
+                    <div class="author-info">
+                        <div class="author-avatar" id="authorAvatar">P</div>
+                        <span class="author-name" id="authorName">Prayer</span>
+                    </div>
+                    <span>•</span>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span>📅</span>
+                        <time id="articleDate">December 15, 2024</time>
+                    </div>
+                    <span>•</span>
+                    <span id="readTime">3 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Image -->
+    <section class="main-image-section">
+        <div class="container">
+            <div class="image-container">
+                <div class="main-image">
+                    <img id="mainImage" src="" alt="" onerror="this.style.display='none'; document.getElementById('mainImageFallback').style.display='flex'">
+                    <div id="mainImageFallback" class="image-fallback" style="display: none;">📰</div>
+                </div>
+
+                <!-- Gallery Thumbnails -->
+                <div class="gallery-thumbnails" id="galleryThumbnails">
+                    <!-- Thumbnails will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="article-content-section">
+        <div class="container">
+            <div class="content-wrapper">
+                <div class="content-card">
+                    <div id="articleContent">
+                        <!-- Content will be inserted here by JavaScript -->
+                    </div>
+
+                    <!-- Social Share -->
+                    <div class="social-share">
+                        <h3>Share this article</h3>
+                        <div class="social-buttons">
+                            <button class="social-btn facebook" onclick="shareArticle('facebook')">Facebook</button>
+                            <button class="social-btn twitter" onclick="shareArticle('twitter')">Twitter</button>
+                            <button class="social-btn whatsapp" onclick="shareArticle('whatsapp')">WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Articles -->
+    <section class="related-section">
+        <div class="container">
+            <h2 class="related-title">Related Articles</h2>
+            <div class="related-grid" id="relatedArticles">
+                <!-- Related articles will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // News data
+        const newsData = {
+            1: {
+                title: "PHDM Empowers Women Through Ibitenge Support Program",
+                category: "Ministry Update",
+                date: "December 15, 2024",
+                readTime: "3 min",
+                author: "Prayer",
+                mainImage: "images/events-worked/women1.jpg",
+                gallery: [
+                    "images/events-worked/women1.jpg",
+                    "images/events-worked/women2.jpg",
+                    "images/events-worked/women3.jpg",
+                ],
+                content: [
+                    {
+                        heading: "Empowering Women Through Unity and Dignity",
+                        text: "At PHDM, we believe that empowering women is essential to building stronger communities and families. Our Ibitenge Support Program is designed to provide women with traditional Rwandan fabric (ibitenge) that not only celebrates our cultural heritage but also promotes unity, self-confidence, and dignity."
+                    },
+                    {
+                        heading: "The Significance of Ibitenge",
+                        text: "Ibitenge is more than just fabric—it's a symbol of Rwandan identity, strength, and togetherness. By providing ibitenge to women in our community, we're helping them embrace their cultural roots while fostering a sense of belonging and pride. This initiative recognizes the important role women play in society and honors their contributions to their families and communities."
+                    },
+                    {
+                        heading: "Building Confidence and Community",
+                        text: "Through this program, women receive beautiful ibitenge fabric that they can wear during church services, community events, and special occasions. This creates a visible bond of unity among participants and helps build lasting friendships. Many women have shared how receiving ibitenge has boosted their confidence and made them feel valued and seen."
+                    },
+                    {
+                        heading: "Impact and Future Plans",
+                        text: "Since launching this initiative, we've distributed ibitenge to over 150 women across multiple communities. The feedback has been overwhelming, with participants expressing gratitude for both the practical support and the emotional encouragement. We plan to expand this program to reach even more women in the coming months, continuing to spread love, dignity, and empowerment throughout our communities."
+                    }
+                ],
+                relatedArticles: [2, 3]
+            },
+            2: {
+                title: "PHDM Spreads Love and Rest Through Mattress Distribution for Women",
+                category: "Event",
+                date: "December 12, 2024",
+                readTime: "2 min",
+                author: "Prayer",
+                mainImage: "images/events-worked/women6.jpg",
+                gallery: [
+                    "images/events-worked/women6.jpg",
+                    "images/events-worked/women5.jpg",
+                    "images/events-worked/women7.jpg",
+                ],
+                content: [
+                    {
+                        heading: "The Gift of Rest and Comfort",
+                        text: "PHDM recently organized a special mattress distribution event as part of our Christmas outreach program. We believe that everyone deserves a good night's rest, and for many vulnerable women in our community, having a proper mattress has been a luxury they couldn't afford. This initiative aims to provide physical comfort while demonstrating God's love and care."
+                    },
+                    {
+                        heading: "A Joyful Celebration",
+                        text: "The distribution event was filled with joy, worship, and thanksgiving. Women from various neighborhoods gathered together to receive their mattresses, and the atmosphere was electric with gratitude. We also shared a community meal, prayed together, and celebrated the true meaning of Christmas—giving to those in need and showing compassion to our neighbors."
+                    },
+                    {
+                        heading: "Testimonies of Transformation",
+                        text: "Many recipients shared heartfelt testimonies about how this gift would change their lives. One mother of four tearfully explained that she had been sleeping on cardboard for over a year. Another widow shared that this mattress represented more than comfort—it showed her that she hadn't been forgotten by her community and by God."
+                    },
+                    {
+                        heading: "Community Partnership",
+                        text: "This initiative was made possible through generous donations from church members and local businesses. We distributed over 100 mattresses during this event, and we're already planning future distributions to reach even more families in need. Together, we're building a community where everyone feels loved, supported, and cared for."
+                    }
+                ],
+                relatedArticles: [1, 3]
+            },
+            3: {
+                title: "Sharing God's Care — PHDM Provides Mutuelle de Santé for Families",
+                category: "Community",
+                date: "December 10, 2024",
+                readTime: "4 min",
+                author: "Prayer",
+                mainImage: "images/news/3.jpg",
+                gallery: [
+                    "images/news/3.jpg",
+                    "images/news/1.jpg",
+                    "images/news/2.jpg",
+                    "images/news/4.jpg"
+                ],
+                content: [
+                    {
+                        heading: "Healthcare Access for All",
+                        text: "Access to healthcare is a fundamental right, yet many vulnerable families in our community struggle to afford basic health insurance. PHDM's Mutuelle de Santé initiative addresses this critical need by providing health insurance coverage to families who cannot afford it on their own. This program ensures that no one has to choose between medical care and other essential needs."
+                    },
+                    {
+                        heading: "The Importance of Mutuelle de Santé",
+                        text: "Rwanda's community-based health insurance system (Mutuelle de Santé) has been instrumental in improving healthcare access across the country. However, the most vulnerable families still face barriers to enrollment. Our program covers the annual insurance fees for qualifying families, ensuring they can access medical services, medications, and hospital care without financial hardship."
+                    },
+                    {
+                        heading: "Holistic Community Care",
+                        text: "This health insurance initiative is part of PHDM's broader commitment to holistic care. We believe that healthy communities are strong communities. By removing financial barriers to healthcare, we're enabling families to seek preventive care, treat illnesses promptly, and maintain their overall wellbeing. This investment in health creates ripple effects throughout our community."
+                    },
+                    {
+                        heading: "Looking Ahead",
+                        text: "Since launching this program six months ago, we've provided Mutuelle de Santé coverage for over 75 families, benefiting approximately 300 individuals. We've heard numerous stories of lives saved and health restored because families could access medical care without delay. Our goal is to expand this program to cover 200 families by the end of next year, ensuring that healthcare is accessible to all members of our community."
+                    }
+                ],
+                relatedArticles: [1, 2]
+            }
+        };
+
+        // Get article ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get('id') || '1';
+        const article = newsData[articleId] || newsData[1];
+
+        let selectedImage = 0;
+
+        // Load article data
+        function loadArticle() {
+            // Set category badge
+            const categoryBadge = document.getElementById('categoryBadge');
+            categoryBadge.textContent = article.category;
+            categoryBadge.className = 'category-badge';
+            if (article.category === 'Ministry Update') {
+                categoryBadge.classList.add('badge-ministry');
+            } else if (article.category === 'Event') {
+                categoryBadge.classList.add('badge-event');
+            } else {
+                categoryBadge.classList.add('badge-community');
+            }
+
+            // Set title and meta
+            document.getElementById('articleTitle').textContent = article.title;
+            document.getElementById('authorName').textContent = article.author;
+            document.getElementById('authorAvatar').textContent = article.author.charAt(0);
+            document.getElementById('articleDate').textContent = article.date;
+            document.getElementById('readTime').textContent = article.readTime + ' read';
+
+            // Set main image
+            document.getElementById('mainImage').src = article.gallery[0];
+            document.getElementById('mainImage').alt = article.title;
+
+            // Create gallery thumbnails
+            const galleryContainer = document.getElementById('galleryThumbnails');
+            galleryContainer.innerHTML = '';
+            article.gallery.forEach((img, index) => {
+                const thumb = document.createElement('button');
+                thumb.className = 'thumbnail' + (index === 0 ? ' active' : '');
+                thumb.onclick = () => selectImage(index);
+                
+                const thumbImg = document.createElement('img');
+                thumbImg.src = img;
+                thumbImg.alt = `Gallery ${index + 1}`;
+                thumbImg.onerror = function() {
+                    this.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'thumbnail-fallback';
+                    fallback.textContent = '📷';
+                    thumb.appendChild(fallback);
+                };
+                
+                thumb.appendChild(thumbImg);
+                galleryContainer.appendChild(thumb);
+            });
+
+            // Create content sections
+            const contentContainer = document.getElementById('articleContent');
+            contentContainer.innerHTML = '';
+            article.content.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'content-section';
+                
+                const heading = document.createElement('h2');
+                heading.className = 'content-heading';
+                heading.textContent = section.heading;
+                
+                const text = document.createElement('p');
+                text.className = 'content-text';
+                text.textContent = section.text;
+                
+                sectionDiv.appendChild(heading);
+                sectionDiv.appendChild(text);
+                contentContainer.appendChild(sectionDiv);
+            });
+
+            // Load related articles
+            loadRelatedArticles();
+        }
+
+        function selectImage(index) {
+            selectedImage = index;
+            document.getElementById('mainImage').src = article.gallery[index];
+            
+            // Update thumbnails
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, i) => {
+                if (i === index) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+
+        function loadRelatedArticles() {
+            const relatedContainer = document.getElementById('relatedArticles');
+            relatedContainer.innerHTML = '';
+            
+            article.relatedArticles.forEach(relId => {
+                const related = newsData[relId];
+                
+                const card = document.createElement('article');
+                card.className = 'related-card';
+                card.onclick = () => {
+                    window.location.href = `NewsDetails.html?id=${relId}`;
+                };
+                
+                const badgeClass = related.category === 'Ministry Update' ? 'badge-ministry' :
+                                  related.category === 'Event' ? 'badge-event' : 'badge-community';
+                
+                card.innerHTML = `
+                    <div class="related-image">
+                        <img src="${related.mainImage}" alt="${related.title}" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="related-image-fallback" style="display: none;">📰</div>
+                        <div class="related-overlay"></div>
+                        <span class="related-badge ${badgeClass}">${related.category}</span>
+                    </div>
+                    <div class="related-content">
+                        <div class="related-meta">
+                            <span>📅</span>
+                            <time>${related.date}</time>
+                        </div>
+                        <h3 class="related-title-text">${related.title}</h3>
+                    </div>
+                `;
+                
+                relatedContainer.appendChild(card);
+            });
+        }
+
+        function shareArticle(platform) {
+            const url = window.location.href;
+            const title = article.title;
+            
+            let shareUrl = '';
+            if (platform === 'facebook') {
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            } else if (platform === 'twitter') {
+                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+            } else if (platform === 'whatsapp') {
+                shareUrl = `https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`;
+            }
+            
+            window.open(shareUrl, '_blank', 'width=600,height=400');
+        }
+
+        // Load article on page load
+        loadArticle();
+    </script>
+</body>
+</html>

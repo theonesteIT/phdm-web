@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - PHD Ministry</title>
+    <link rel="stylesheet" href="Header.css">
+    <link rel="stylesheet" href="Footer.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+         
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Main Section */
+        .gallery-section {
+            min-height: 100vh;
+            padding: 4rem 1rem;
+        }
+
+        /* Header */
+        .gallery-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-size: clamp(3rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .title-divider {
+            height: 4px;
+            width: 8rem;
+            background: #f97316;
+            margin: 0 auto 2rem;
+        }
+
+        .gallery-description {
+            font-size: 1.25rem;
+            color: #4b5563;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            margin-bottom: 3rem;
+        }
+
+        .category-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-btn:hover {
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        .category-btn.active {
+            background: #f97316;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+            border-color: #f97316;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .image-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .image-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            background: #e5e7eb;
+            aspect-ratio: 1;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .image-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .image-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .image-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+        }
+
+        .image-title {
+            color: white;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .image-description {
+            color: #e5e7eb;
+            font-size: 0.875rem;
+        }
+
+        .zoom-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 9999px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #f97316;
+            color: white;
+            border-color: #f97316;
+        }
+
+        .pagination-btn.active {
+            background: #f97316;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+            border-color: #f97316;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-ellipsis {
+            color: #9ca3af;
+            padding: 0 0.5rem;
+        }
+
+        /* Results Info */
+        .results-info {
+            text-align: center;
+            margin-top: 2rem;
+            color: #4b5563;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .lightbox-nav.prev {
+            left: 1rem;
+        }
+
+        .lightbox-nav.next {
+            right: 1rem;
+        }
+
+        .lightbox-content {
+            max-width: 96rem;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        .lightbox-info {
+            margin-top: 1.5rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 48rem;
+        }
+
+        .lightbox-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-description {
+            color: #d1d5db;
+        }
+
+        /* SVG Icons */
+        .icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .icon.small {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+     <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Events.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="give.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Contact.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+    <section class="gallery-section">
+        <div class="container">
+            <!-- Header -->
+            <div class="gallery-header">
+                <h1 class="gallery-title">Photo Gallery</h1>
+                <div class="title-divider"></div>
+                <p class="gallery-description">
+                    Capturing moments of faith, fellowship, and transformation at PHD Ministry
+                </p>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <div class="category-buttons" id="categoryButtons">
+                    <button class="category-btn active" data-category="all">
+                        <span>🖼️</span>
+                        <span>All Photos</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="image-grid" id="imageGrid">
+                <!-- Images will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="pagination">
+                <!-- Pagination buttons will be inserted here by JavaScript -->
+            </div>
+
+            <!-- Results Info -->
+            <div class="results-info" id="resultsInfo">
+                <!-- Results info will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">
+            <svg class="icon" viewBox="0 0 24 24">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+
+        <button class="lightbox-nav prev" id="lightboxPrev">
+            <svg class="icon" viewBox="0 0 24 24">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+
+        <button class="lightbox-nav next" id="lightboxNext">
+            <svg class="icon" viewBox="0 0 24 24">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+
+        <div class="lightbox-content">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="">
+            <div class="lightbox-info">
+                <h2 class="lightbox-title" id="lightboxTitle"></h2>
+                <p class="lightbox-description" id="lightboxDescription"></p>
+            </div>
+        </div>
+    </div>
+     <footer>
+        <!-- Main Footer Section -->
+        <div class="footer-main">
+            <div class="container" style="display: contents;">
+                <!-- Column 1: Ministry Info -->
+                <div class="ministry-info">
+                    <h2>PHD Ministry</h2>
+                    <p class="ministry-tagline">Prayer • Healing • Discipleship</p>
+                    <p class="ministry-description">
+                        Empowering lives through faith, healing, and discipleship.
+                    </p>
+                </div>
+
+                <!-- Column 2: Visit & Contact -->
+                <div class="contact-info">
+                    <div class="contact-section">
+                        <h4>Visit Us</h4>
+                        <p>Kigali Kanombe, City, Rwanda</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 phdmministry@gmail.com</p>
+                        <p>📞 +250 788 560 756/0783140316</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d517.8889369608336!2d30.141329889783577!3d-2.0132904952767854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca948d3b52825%3A0x628cae646f43c5aa!2sPHD%20Ministry!5e1!3m2!1sen!2srw!4v1762265109751!5m2!1sen!2srw"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="PHD Ministry Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Social Bar -->
+        <div class="social-bar">
+            <div class="container" style="display: contents;">
+                <p class="copyright">
+                    © <span id="currentYear"></span> PHD Ministry. All rights reserved.
+                </p>
+
+                <div class="social-links">
+                    <a 
+                        href="http://facebook.com/PHD-Ministry-Rwanda-101293981804906" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a 
+                        href="http://instagram.com/phdministyrwanda" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/@phdwisdomtv3801" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery data
+        const galleryImages = [
+            // Worship & Services
+            { id: 1, url: 'images/events-worked/food1.jpg', category: 'worship', title: 'Sunday Worship Service', description: 'Praising God together' },
+            { id: 2, url: 'images/events-worked/food3.jpg', category: 'worship', title: 'Youth Worship Night', description: 'Young hearts for Jesus' },
+            { id: 3, url: 'images/events-worked/ood2.jpg', category: 'worship', title: 'Prayer Meeting', description: 'United in prayer' },
+            { id: 4, url: 'images/events-worked/women1.jpg', category: 'worship', title: 'Worship Team', description: 'Leading with passion' },
+            
+            // Community Outreach
+            { id: 5, url: 'images/events-worked/women2.jpg', category: 'outreach', title: 'Community Feeding', description: 'Serving with love' },
+            { id: 6, url: 'images/events-worked/women3.jpg', category: 'outreach', title: 'Medical Outreach', description: 'Healing hands ministry' },
+            { id: 7, url: 'images/events-worked/women4.jpg', category: 'outreach', title: 'Street Evangelism', description: 'Reaching the lost' },
+            { id: 8, url: 'images/events-worked/women5.jpg', category: 'outreach', title: 'Village Outreach', description: 'Taking hope to rural areas' },
+            
+            // Youth & Children
+            { id: 9, url: 'images/events-worked/women6.jpg', category: 'youth', title: 'Kids Church', description: 'Training young disciples' },
+            { id: 10, url: 'images/events-worked/women7.jpg', category: 'youth', title: 'Youth Conference', description: 'Empowering the next generation' },
+            { id: 11, url: 'images/events-worked/women8.jpg', category: 'youth', title: 'Bible Study', description: 'Growing in the Word' },
+            { id: 12, url: 'images/events-worked/women9.jpg', category: 'youth', title: 'Youth Sports Day', description: 'Fellowship and fun' },
+            
+            // Conferences & Events
+            { id: 13, url: 'images/events-worked/photo10.jpg', category: 'events', title: 'Annual Conference', description: 'Gathering of believers' },
+            { id: 14, url: 'images/events-worked/photo11.jpg', category: 'events', title: 'Leadership Summit', description: 'Equipping leaders' },
+            { id: 15, url: 'image15.jpg', category: 'events', title: 'Easter Celebration', description: 'He is risen!' },
+            { id: 16, url: 'image16.jpg', category: 'events', title: 'Christmas Service', description: 'Celebrating the Savior' },
+        ];
+
+        const categories = [
+            { id: 'all', name: 'All Photos', icon: '🖼️' },
+        ];
+
+        // State
+        let currentPage = 1;
+        let selectedCategory = 'all';
+        let selectedImage = null;
+        const imagesPerPage = 12;
+
+        // Get filtered images
+        function getFilteredImages() {
+            return selectedCategory === 'all' 
+                ? galleryImages 
+                : galleryImages.filter(img => img.category === selectedCategory);
+        }
+
+        // Render image grid
+        function renderImageGrid() {
+            const filteredImages = getFilteredImages();
+            const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
+            const startIndex = (currentPage - 1) * imagesPerPage;
+            const currentImages = filteredImages.slice(startIndex, startIndex + imagesPerPage);
+
+            const imageGrid = document.getElementById('imageGrid');
+            imageGrid.innerHTML = '';
+
+            currentImages.forEach(image => {
+                const card = document.createElement('div');
+                card.className = 'image-card';
+                card.onclick = () => openLightbox(image);
+                
+                card.innerHTML = `
+                    <img src="${image.url}" alt="${image.title}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%23e5e7eb%22 width=%22400%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2260%22%3E📷%3C/text%3E%3C/svg%3E'">
+                    <div class="image-overlay">
+                        <div class="image-info">
+                            <h3 class="image-title">${image.title}</h3>
+                            <p class="image-description">${image.description}</p>
+                        </div>
+                        <div class="zoom-icon">
+                            <svg class="icon small" viewBox="0 0 24 24" stroke="white">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+                
+                imageGrid.appendChild(card);
+            });
+
+            renderPagination();
+            renderResultsInfo();
+        }
+
+        // Render pagination
+        function renderPagination() {
+            const filteredImages = getFilteredImages();
+            const totalPages = Math.ceil(filteredImages.length / imagesPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => handlePageChange(currentPage - 1);
+            prevBtn.innerHTML = `
+                <svg class="icon small" viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            `;
+            pagination.appendChild(prevBtn);
+
+            // Page buttons
+            for (let page = 1; page <= totalPages; page++) {
+                if (
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = 'pagination-btn' + (currentPage === page ? ' active' : '');
+                    pageBtn.textContent = page;
+                    pageBtn.onclick = () => handlePageChange(page);
+                    pagination.appendChild(pageBtn);
+                } else if (page === currentPage - 2 || page === currentPage + 2) {
+                    const ellipsis = document.createElement('span');
+                    ellipsis.className = 'pagination-ellipsis';
+                    ellipsis.textContent = '...';
+                    pagination.appendChild(ellipsis);
+                }
+            }
+
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => handlePageChange(currentPage + 1);
+            nextBtn.innerHTML = `
+                <svg class="icon small" viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            `;
+            pagination.appendChild(nextBtn);
+        }
+
+        // Render results info
+        function renderResultsInfo() {
+            const filteredImages = getFilteredImages();
+            const startIndex = (currentPage - 1) * imagesPerPage;
+            const endIndex = Math.min(startIndex + imagesPerPage, filteredImages.length);
+            
+            document.getElementById('resultsInfo').textContent = 
+                `Showing ${startIndex + 1}-${endIndex} of ${filteredImages.length} photos`;
+        }
+
+        // Handle page change
+        function handlePageChange(page) {
+            currentPage = page;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderImageGrid();
+        }
+
+        // Handle category change
+        function handleCategoryChange(category) {
+            selectedCategory = category;
+            currentPage = 1;
+            renderImageGrid();
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.category === category);
+            });
+        }
+
+        // Lightbox functions
+        function openLightbox(image) {
+            selectedImage = image;
+            document.getElementById('lightboxImage').src = image.url;
+            document.getElementById('lightboxTitle').textContent = image.title;
+            document.getElementById('lightboxDescription').textContent = image.description;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'unset';
+            selectedImage = null;
+        }
+
+        function navigateLightbox(direction) {
+            const filteredImages = getFilteredImages();
+            const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id);
+            const newIndex = direction === 'next' 
+                ? (currentIndex + 1) % filteredImages.length
+                : (currentIndex - 1 + filteredImages.length) % filteredImages.length;
+            openLightbox(filteredImages[newIndex]);
+        }
+
+        // Event listeners
+        document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+        document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateLightbox('prev');
+        });
+        document.getElementById('lightboxNext').addEventListener('click', (e) => {
+            e.stopPropagation();
+            navigateLightbox('next');
+        });
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!selectedImage) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox('prev');
+            if (e.key === 'ArrowRight') navigateLightbox('next');
+        });
+
+        // Initialize category buttons
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => handleCategoryChange(btn.dataset.category));
+        });
+
+        // Initial render
+        renderImageGrid();
+    </script>
+</body>
+</html>

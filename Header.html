@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHD Ministry - Navigation</title>
+    <style>
+      
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="assets/logo-orginal.jpg" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="/" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/news" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/events" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/give" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/gallery" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+
+    <!-- Mobile Modal -->
+    <div id="backdrop" class="backdrop hidden"></div>
+    <div id="mobileModal" class="mobile-modal hidden">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <div class="modal-logo">
+                <img src="assets/logo-orginal.jpg" alt="PHDM Church">
+                <span>PHD Ministry</span>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close menu">
+                <div class="close-btn-bg"></div>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="modal-nav">
+            <ul class="modal-nav-list">
+                <li>
+                    <a href="/" class="modal-nav-link active">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>🏠</span>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>ℹ️</span>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/news" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📰</span>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/events" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📅</span>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/give" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>💝</span>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>📞</span>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/gallery" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>🖼️</span>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Support Button -->
+            <div class="support-section">
+                <a href="/give" class="support-btn">
+                    <div class="support-btn-bg"></div>
+                    <div class="support-btn-decorator1"></div>
+                    <div class="support-btn-decorator2"></div>
+                    <div class="support-btn-content">
+                        <span class="support-btn-icon">💝</span>
+                        <span class="support-btn-text">Support Ministry</span>
+                        <span class="support-btn-arrow">→</span>
+                    </div>
+                    <div class="support-btn-shine"></div>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <p>Prayer • Healing • Discipleship</p>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const backdrop = document.getElementById('backdrop');
+        const mobileModal = document.getElementById('mobileModal');
+
+        function openMenu() {
+            mobileModal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileModal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+            document.body.style.overflow = 'unset';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        backdrop.addEventListener('click', closeMenu);
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileModal.classList.contains('hidden')) {
+                closeMenu();
+            }
+        });
+
+        // Close modal when clicking a link
+        const modalLinks = document.querySelectorAll('.modal-nav-link, .support-btn');
+        modalLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Set active state based on current page
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link, .modal-nav-link');
+        
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

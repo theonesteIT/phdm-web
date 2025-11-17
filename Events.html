@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events Page</title>
+  <link rel="stylesheet" href="Header.css">
+  <link rel="stylesheet" href="Footer.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #ffffff;
+    }
+
+    .section {
+      padding: 4rem 0;
+      background-color: #ffffff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .card {
+      background: linear-gradient(to bottom right, rgba(234, 179, 8, 0.1), rgba(249, 115, 22, 0.1));
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-item {
+      text-align: center;
+    }
+
+    .icon-circle {
+      width: 5rem;
+      height: 5rem;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: linear-gradient(to bottom right, #f97316, #eab308);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .service-item:hover .icon-circle {
+      transform: scale(1.1);
+    }
+
+    .icon-circle span {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-weight: 700;
+      font-size: 1.125rem;
+      background: linear-gradient(to right, #f97316, #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: rgba(0, 0, 0, 0.8);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+   <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Events.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="give.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Contact.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+  <section class="section">
+    <div class="container">
+      <div class="card">
+        <h3>Join Us This Week</h3>
+        <div class="grid" id="services-grid"></div>
+      </div>
+    </div>
+  </section>
+
+   <footer>
+        <!-- Main Footer Section -->
+        <div class="footer-main">
+            <div class="container" style="display: contents;">
+                <!-- Column 1: Ministry Info -->
+                <div class="ministry-info">
+                    <h2>PHD Ministry</h2>
+                    <p class="ministry-tagline">Prayer • Healing • Discipleship</p>
+                    <p class="ministry-description">
+                        Empowering lives through faith, healing, and discipleship.
+                    </p>
+                </div>
+
+                <!-- Column 2: Visit & Contact -->
+                <div class="contact-info">
+                    <div class="contact-section">
+                        <h4>Visit Us</h4>
+                        <p>Kigali Kanombe, City, Rwanda</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 phdmministry@gmail.com</p>
+                        <p>📞 +250 788 560 756/0783140316</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d517.8889369608336!2d30.141329889783577!3d-2.0132904952767854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca948d3b52825%3A0x628cae646f43c5aa!2sPHD%20Ministry!5e1!3m2!1sen!2srw!4v1762265109751!5m2!1sen!2srw"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="PHD Ministry Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Social Bar -->
+        <div class="social-bar">
+            <div class="container" style="display: contents;">
+                <p class="copyright">
+                    © <span id="currentYear"></span> PHD Ministry. All rights reserved.
+                </p>
+
+                <div class="social-links">
+                    <a 
+                        href="http://facebook.com/PHD-Ministry-Rwanda-101293981804906" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a 
+                        href="http://instagram.com/phdministyrwanda" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/@phdwisdomtv3801" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    const services = [
+      { icon: '⛪', title: 'Sunday Service', time: '10:00 AM - 12:00 PM' },
+      { icon: '🙏', title: 'Wednesday Prayer', time: '10:00 AM - 4:00 PM' },
+      { icon: '👨‍👩‍👧‍👦', title: 'Friday Service', time: '5:30 PM - 7:30 PM' }
+    ];
+
+    const grid = document.getElementById('services-grid');
+
+    services.forEach(service => {
+      const serviceItem = document.createElement('div');
+      serviceItem.className = 'service-item';
+      
+      serviceItem.innerHTML = `
+        <div class="icon-circle">
+          <span>${service.icon}</span>
+        </div>
+        <h4>${service.title}</h4>
+        <p>${service.time}</p>
+      `;
+      
+      grid.appendChild(serviceItem);
+    });
+  </script>
+</body>
+</html>

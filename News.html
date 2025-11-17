@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - PHD Ministry</title>
+    <link rel="stylesheet" href="Footer.css">
+    <link rel="stylesheet" href="Header.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(to bottom right, #f9fafb, #ffffff);
+            color: #1f2937;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background: linear-gradient(to bottom right, #000000, rgba(249, 115, 22, 0.2), rgba(251, 191, 36, 0.3));
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #fbbf24, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 48rem;
+            margin: 0 auto;
+            line-height: 1.75;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            padding: 5rem 0 0;
+        }
+
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
+            background: white;
+            color: #4b5563;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            background: #fbbf24;
+            color: black;
+            border-color: #fbbf24;
+        }
+
+        .category-btn.active {
+            background: #f97316;
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #f97316;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            margin-bottom: 4rem;
+        }
+
+        .featured-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .featured-container {
+            max-width: 64rem;
+            margin: 0 auto;
+        }
+
+        /* News Card */
+        .news-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s;
+            background: white;
+            border: 1px solid #f3f4f6;
+            cursor: pointer;
+        }
+
+        .news-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: rgba(249, 115, 22, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .news-card-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom right, rgba(251, 191, 36, 0.05), rgba(249, 115, 22, 0.05));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .news-card:hover .news-card-gradient {
+            opacity: 1;
+        }
+
+        .news-image {
+            position: relative;
+            height: 12rem;
+            overflow: hidden;
+        }
+
+        .news-card.featured .news-image {
+            height: 16rem;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .news-card:hover .news-image img {
+            transform: scale(1.1);
+        }
+
+        .news-image-fallback {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .badge-ministry {
+            background: #f97316;
+            color: white;
+        }
+
+        .badge-event {
+            background: #fbbf24;
+            color: black;
+        }
+
+        .badge-community {
+            background: #10b981;
+            color: white;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #ef4444;
+            color: white;
+            z-index: 10;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            transition: color 0.3s;
+        }
+
+        .news-card.featured .news-title {
+            font-size: 1.25rem;
+        }
+
+        .news-card:hover .news-title {
+            color: #f97316;
+        }
+
+        .news-excerpt {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+
+        .news-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            background: linear-gradient(to bottom right, #f97316, #fbbf24);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: black;
+        }
+
+        .author-name {
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        .read-more {
+            color: #f97316;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #fbbf24;
+        }
+
+        .read-more-arrow {
+            transition: transform 0.3s;
+        }
+
+        .read-more:hover .read-more-arrow {
+            transform: translateX(0.25rem);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 640px) {
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .news-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Load More Button */
+        .load-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .load-more-btn {
+            padding: 1rem 2rem;
+            background: #f97316;
+            color: white;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .load-more-btn:hover {
+            background: #ea580c;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Newsletter Section */
+        .newsletter {
+            padding: 5rem 0;
+            background: linear-gradient(to right, rgba(249, 115, 22, 0.1), rgba(251, 191, 36, 0.1));
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #f97316, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter p {
+            color: rgba(0, 0, 0, 0.8);
+            font-size: 1.125rem;
+            max-width: 48rem;
+            margin: 0 auto 2rem;
+            line-height: 1.75;
+        }
+
+        .newsletter-form {
+            max-width: 28rem;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e5e7eb;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .newsletter-input:focus {
+            border-color: #f97316;
+        }
+
+        .newsletter-btn {
+            padding: 1rem 2rem;
+            background: #f97316;
+            color: white;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .newsletter-btn:hover {
+            background: #ea580c;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+     <header>
+        <nav class="container-xl">
+            <a href="/" class="logo-link">
+                <img src="logo.png" alt="PHDM Church" class="logo-img">
+                <div class="logo-text">
+                    <span class="logo-title">PHD Ministry</span>
+                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <ul class="desktop-nav">
+                <li>
+                    <a href="index.html" class="nav-link active">
+                        <div class="nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Events.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="give.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Contact.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="nav-link">
+                        <div class="nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
+                <div class="mobile-menu-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
+                </svg>
+            </button>
+        </nav>
+        <div class="gradient-line"></div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h1>
+                    Latest <span class="gradient-text">News</span> & Updates
+                </h1>
+                <p>
+                    Stay informed about the latest happenings, ministry updates, and community events at PHDM. 
+                    Discover how God is moving in our community and beyond.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section>
+        <div class="container">
+            <!-- Category Filter -->
+            <div class="category-filter">
+                <button class="category-btn active" data-category="All">All</button>
+                <button class="category-btn" data-category="Ministry Update">Ministry Update</button>
+                <button class="category-btn" data-category="Event">Event</button>
+                <button class="category-btn" data-category="Community">Community</button>
+            </div>
+
+            <!-- Featured Article -->
+            <div class="featured-section" id="featuredSection">
+                <h3 class="featured-title">Featured Story</h3>
+                <div class="featured-container">
+                    <article class="news-card featured" data-id="1">
+                        <div class="news-card-gradient"></div>
+                        <div class="news-image">
+                            <img src="images/events-worked/women1.jpg" alt="PHDM Empowers Women" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="news-image-fallback" style="display: none;">📰</div>
+                            <div class="image-overlay"></div>
+                            <span class="category-badge badge-ministry">Ministry Update</span>
+                            <span class="featured-badge">Featured</span>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-meta">
+                                <span>📅</span>
+                                <time>December 15, 2024</time>
+                                <span>•</span>
+                                <span>3 min read</span>
+                            </div>
+                            <h3 class="news-title">PHDM Empowers Women Through Ibitenge Support Program</h3>
+                            <p class="news-excerpt">
+                                We're proud to support women in our community through a new initiative that provides ibitenge, promoting unity, self-confidence, and empowerment.
+                            </p>
+                            <div class="news-footer">
+                                <div class="author-info">
+                                    <div class="author-avatar">P</div>
+                                    <span class="author-name">Prayer</span>
+                                </div>
+                                <a href="NewsDetails.html?id=1" class="read-more">
+                                    Read More
+                                    <span class="read-more-arrow">→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- News Grid -->
+            <div class="news-grid" id="newsGrid">
+                <!-- Article 2 -->
+                <article class="news-card" data-id="2" data-category="Event">
+                    <div class="news-card-gradient"></div>
+                    <div class="news-image">
+                        <img src="images/events-worked/women6.jpg" alt="Mattress Distribution" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="news-image-fallback" style="display: none;">📰</div>
+                        <div class="image-overlay"></div>
+                        <span class="category-badge badge-event">Event</span>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>📅</span>
+                            <time>December 12, 2024</time>
+                            <span>•</span>
+                            <span>2 min read</span>
+                        </div>
+                        <h3 class="news-title">PHDM Spreads Love and Rest Through Mattress Distribution for Women</h3>
+                        <p class="news-excerpt">
+                            PHDM continues to bring hope and comfort to families in need through our Mattress Support Initiative. This program provides single mothers with essential bedding to ensure a safe and restful environment for their children.
+                        </p>
+                        <div class="news-footer">
+                            <div class="author-info">
+                                <div class="author-avatar">P</div>
+                                <span class="author-name">Prayer</span>
+                            </div>
+                            <a href="NewsDetails.html?id=2" class="read-more">
+                                Read More
+                                <span class="read-more-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="news-card" data-id="3" data-category="Community">
+                    <div class="news-card-gradient"></div>
+                    <div class="news-image">
+                        <img src="images/news/3.jpg" alt="Mutuelle de Santé" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="news-image-fallback" style="display: none;">📰</div>
+                        <div class="image-overlay"></div>
+                        <span class="category-badge badge-community">Community</span>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-meta">
+                            <span>📅</span>
+                            <time>December 10, 2024</time>
+                            <span>•</span>
+                            <span>4 min read</span>
+                        </div>
+                        <h3 class="news-title">Sharing God's Care — PHDM Provides Mutuelle de Santé for Families</h3>
+                        <p class="news-excerpt">
+                            PHDM is proud to support vulnerable families by providing Mutuelle de Santé health insurance. This initiative ensures that every family has access to essential healthcare services.
+                        </p>
+                        <div class="news-footer">
+                            <div class="author-info">
+                                <div class="author-avatar">P</div>
+                                <span class="author-name">Prayer</span>
+                            </div>
+                            <a href="NewsDetails.html?id=3" class="read-more">
+                                Read More
+                                <span class="read-more-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more">
+                <button class="load-more-btn">Load More News</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h3>Stay Updated</h3>
+            <p>
+                Subscribe to our newsletter to receive the latest news, ministry updates, and event announcements directly in your inbox.
+            </p>
+            <form class="newsletter-form" onsubmit="return handleNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+       <footer>
+        <!-- Main Footer Section -->
+        <div class="footer-main">
+            <div class="container" style="display: contents;">
+                <!-- Column 1: Ministry Info -->
+                <div class="ministry-info">
+                    <h2>PHD Ministry</h2>
+                    <p class="ministry-tagline">Prayer • Healing • Discipleship</p>
+                    <p class="ministry-description">
+                        Empowering lives through faith, healing, and discipleship.
+                    </p>
+                </div>
+
+                <!-- Column 2: Visit & Contact -->
+                <div class="contact-info">
+                    <div class="contact-section">
+                        <h4>Visit Us</h4>
+                        <p>Kigali Kanombe, City, Rwanda</p>
+                    </div>
+
+                    <div class="contact-section">
+                        <h4>Contact</h4>
+                        <p>📧 phdmministry@gmail.com</p>
+                        <p>📞 +250 788 560 756/0783140316</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Google Map -->
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d517.8889369608336!2d30.141329889783577!3d-2.0132904952767854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca948d3b52825%3A0x628cae646f43c5aa!2sPHD%20Ministry!5e1!3m2!1sen!2srw!4v1762265109751!5m2!1sen!2srw"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="PHD Ministry Map">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider"></div>
+
+        <!-- Social Bar -->
+        <div class="social-bar">
+            <div class="container" style="display: contents;">
+                <p class="copyright">
+                    © <span id="currentYear"></span> PHD Ministry. All rights reserved.
+                </p>
+
+                <div class="social-links">
+                    <a 
+                        href="http://facebook.com/PHD-Ministry-Rwanda-101293981804906" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                    </a>
+                    <a 
+                        href="http://instagram.com/phdministyrwanda" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a 
+                        href="https://www.youtube.com/@phdwisdomtv3801" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="social-link"
+                        aria-label="YouTube">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                            <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year dynamically
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+    <script>
+        // Category filtering
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const newsCards = document.querySelectorAll('.news-card:not(.featured)');
+        const featuredSection = document.getElementById('featuredSection');
+        let currentCategory = 'All';
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Get selected category
+                currentCategory = btn.dataset.category;
+
+                // Show/hide featured section
+                if (currentCategory === 'All') {
+                    featuredSection.classList.remove('hidden');
+                } else {
+                    featuredSection.classList.add('hidden');
+                }
+
+                // Filter news cards
+                newsCards.forEach(card => {
+                    const cardCategory = card.dataset.category;
+                    if (currentCategory === 'All' || cardCategory === currentCategory) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Make cards clickable
+        document.querySelectorAll('.news-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.read-more')) {
+                    const id = card.dataset.id;
+                    window.location.href = `NewsDetails.html?id=${id}`;
+                }
+            });
+        });
+
+        // Newsletter form
+        function handleNewsletter(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing! You will receive our latest updates.');
+            e.target.reset();
+            return false;
+        }
+    </script>
+
+</body>
+</html>
