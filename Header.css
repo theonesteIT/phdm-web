@@ -305,6 +305,7 @@
         /* Modal Navigation */
         .modal-nav {
             padding: 1.5rem;
+            height: auto;
         }
 
         .modal-nav-list {
