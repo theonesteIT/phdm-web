@@ -1,4 +1,4 @@
-  * {
+ * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -492,5 +492,22 @@
         /* Hidden class */
         .hidden {
             display: none;
-            
+        }
+
+        /* Demo Content */
+        .content {
+            margin-top: 100px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #1a202c;
+        }
+
+        .content p {
+            color: #718096;
+            line-height: 1.6;
         }

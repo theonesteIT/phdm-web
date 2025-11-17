@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="Footer.css">
 </head>
 <body>
-     <header>
+      <header>
         <nav class="container-xl">
-            <a href="/" class="logo-link">
+            <a href="index.html" class="logo-link">
                 <img src="logo.png" alt="PHDM Church" class="logo-img">
                 <div class="logo-text">
                     <span class="logo-title">PHD Ministry</span>
-                    <p class="logo-subtitle">Prayer • Healing • Discipleship</p>
+                    <p class="logo-subtitle">Prophetic Healing and Deliverance </p>
                 </div>
             </a>
 
@@ -39,12 +39,7 @@
                         <span>News</span>
                     </a>
                 </li>
-                <li>
-                    <a href="Events.html" class="nav-link">
-                        <div class="nav-link-bg"></div>
-                        <span>Events</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="give.html" class="nav-link">
                         <div class="nav-link-bg"></div>
@@ -66,8 +61,7 @@
             </ul>
 
             <!-- Mobile Menu Button -->
-            <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
-                <div class="mobile-menu-btn-bg"></div>
+            <button class="mobile-menu-btn" id="menuBtn" aria-label="Toggle menu">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" />
                 </svg>
@@ -75,6 +69,104 @@
         </nav>
         <div class="gradient-line"></div>
     </header>
+
+    <!-- Backdrop -->
+    <div class="backdrop hidden" id="backdrop"></div>
+
+    <!-- Mobile Modal -->
+    <div class="mobile-modal hidden" id="mobileModal">
+        <div class="modal-header">
+            <div class="modal-logo">
+                <img src="logo.png" alt="PHDM Church">
+                <span>PHD Ministry</span>
+            </div>
+            <button class="close-btn" id="closeBtn" aria-label="Close menu">
+                <div class="close-btn-bg"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="modal-nav">
+            <ul class="modal-nav-list">
+                <li>
+                    <a href="index.html" class="modal-nav-link active">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="About.html" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="News.html" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>News</span>
+                    </a>
+                </li>
+               
+                <li>
+                    <a href="Contact.html" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="Galley.html" class="modal-nav-link">
+                        <div class="modal-nav-link-bg"></div>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+            </ul>
+
+           
+        </nav>
+
+        <div class="modal-footer">
+            <p> Prophetic  Healing and Deliverance  Ministry</p>
+        </div>
+    </div>
+
+   
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileModal = document.getElementById('mobileModal');
+        const backdrop = document.getElementById('backdrop');
+
+        function openMenu() {
+            mobileModal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            mobileModal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        menuBtn.addEventListener('click', openMenu);
+        closeBtn.addEventListener('click', closeMenu);
+        backdrop.addEventListener('click', closeMenu);
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.modal-nav-link').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !mobileModal.classList.contains('hidden')) {
+                closeMenu();
+            }
+        });
+    </script>
     <section class="give-page">
         <div class="container">
             <!-- Header -->
